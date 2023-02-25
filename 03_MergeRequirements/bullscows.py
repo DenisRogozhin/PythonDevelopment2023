@@ -21,6 +21,9 @@ def gameplay(ask: callable, inform: callable, words: list[str]) -> int:
     attemts = 0
     while not guessed:
         guess = ask("Введите слово: ", words)
+        while len(guess) != len(secret):
+            print('Words must have the same len!')
+            guess = ask("Введите слово: ", words)
         print("guess", guess)
         attemts += 1
         bulls, cows = bullscows(guess, secret)
