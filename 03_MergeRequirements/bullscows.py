@@ -1,6 +1,7 @@
 import random
 import argparse
 from urllib import parse, request
+import sys
 
 def bullscows(guess: str, secret:str) -> (int, int):
     cows = 0
@@ -58,8 +59,13 @@ if __name__ == "__main__":
         for line in request.urlopen(args.dictionary):
             words.append(line.decode("utf-8")[:-1])
     else:
-        with open(args.dictionary, 'r') as f:
-            words = f.read().split()
+        try:
+            with open(args.dictionary, 'r') as f:
+                words = f.read().split()
+        except FileNotFoundError:
+            print("Dictionary must be URL or filename")
+            sys.exit(1)
+                
     
     if args.words_len:
         length = args.words_len
