@@ -80,6 +80,8 @@ async def chat(reader, writer):
                     if reged:
                         del clients[me]
                         free_names.append(me)
+                    writer.close()
+                    await writer.wait_closed()
                     return
                 else:
                     writer.write(f"Unknown command!".encode())
